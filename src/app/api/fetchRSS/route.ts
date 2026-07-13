@@ -1,8 +1,8 @@
-// /pages/api/fetchRSS.ts
+import { NextResponse } from 'next/server';
 import Parser from 'rss-parser';
 import { siteConfig } from '@/src/configs/config';
 
-export default async function handler(req: any, res: any) {
+export async function GET() {
   const parser = new Parser();
   const feed = await parser.parseURL(`${siteConfig.social.blog}/rss.xml`);
 
@@ -16,5 +16,5 @@ export default async function handler(req: any, res: any) {
     source: item.source?.title || 'Hashnode' // Get the source blog title
   }));
 
-  res.status(200).json({ items: blogs });
+  return NextResponse.json({ items: blogs });
 }

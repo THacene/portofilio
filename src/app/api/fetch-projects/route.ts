@@ -1,26 +1,26 @@
+import { NextResponse } from 'next/server';
 import { siteConfig } from '@/src/configs/config';
 
 const GITHUB_USERNAME = siteConfig.social.github;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN; // Retrieve the GitHub token from .env.local
 
-if (!GITHUB_TOKEN) {
-  throw new Error('GitHub token is not defined in .env.local');
-}
-
-export default async function handler(
-  req: { query: { search?: string } },
-  res: {
-    status: (arg0: number) => { (): any; new (): any; json: (arg0: any) => void };
+export async function GET(request: Request) {
+  if (!GITHUB_TOKEN) {
+    return NextResponse.json(
+      { message: 'GitHub token is not defined' },
+      { status: 500 }
+    );
   }
-) {
-  const { search } = req.query; // Get the search query from the URL (optional)
+
+  const { searchParams } = new URL(request.url);
+  const search = searchParams.get('search') || '';
 
   try {
     const response = await fetch(
       `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`,
       {
         headers: {
-          Authorization: `token ${GITHUB_TOKEN}` // Include the token in the request header
+          Authorization: `token ${GITHUB_TOKEN}`
         }
       }
     );
@@ -71,10 +71,12 @@ export default async function handler(
       )
       : projectsWithTopics;
 
-    // Send the filtered projects as a response
-    res.status(200).json(filteredProjects);
+    return NextResponse.json(filteredProjects);
   } catch (error) {
     console.error('Error fetching GitHub repositories:', error);
-    res.status(500).json({ message: 'Error fetching repositories' });
+    return NextResponse.json(
+      { message: 'Error fetching repositories' },
+      { status: 500 }
+    );
   }
 }

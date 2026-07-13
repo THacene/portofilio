@@ -2,13 +2,7 @@ import ExternalLink from '../ui/ExternalLink';
 import AnimationContainer from '../utils/AnimationContainer';
 import ShowSkills from '../utils/ShowSkills';
 import { CardProjectProps } from '@/src/types';
-import {
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactFragment,
-  ReactPortal
-} from 'react';
+import React from 'react';
 
 const CardProject = ({
   title,
@@ -34,16 +28,8 @@ const CardProject = ({
             topics.length > 0 &&
             topics.map(
               (
-                topic:
-                  | string
-                  | number
-                  | boolean
-                  | ReactElement<any, string | JSXElementConstructor<any>>
-                  | ReactFragment
-                  | ReactPortal
-                  | null
-                  | undefined,
-                index: Key | null | undefined
+                topic: React.ReactNode,
+                index: React.Key | null | undefined
               ) => (
                 <span
                   key={index}
