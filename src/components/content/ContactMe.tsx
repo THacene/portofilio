@@ -36,23 +36,34 @@ const ContactMe = () => {
     }
   };
 
+  const inputStyles = {
+    background: 'var(--paper)',
+    border: '1.5px solid var(--border-sketch)',
+    color: 'var(--ink)',
+    fontFamily: 'var(--font-body)',
+  };
+
+  const inputClasses = "w-full p-3 text-base outline-none transition-all ease placeholder:opacity-40";
+
   return (
     <AnimationContainer customClassName="w-full">
       <h2
-        className="font-bold text-2xl md:text-2xl tracking-tight mb-2 gradient-text text-center lg:text-start"
+        className="font-bold text-2xl md:text-2xl tracking-tight mb-2 text-center lg:text-start"
         id="contactme"
+        style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)', letterSpacing: '-0.02em' }}
       >
-        Contact me
+        Get in Touch
       </h2>
       <div className="section-divider"></div>
 
       <div className="w-full flex justify-between items-center flex-col mx-auto max-w-screen-xl">
         <div className="w-full flex justify-between items-center flex-col lg:flex-row gap-6 mb-10">
           <div className="w-full glass-card p-4 sm:p-6">
-            <h3 className="font-bold text-base tracking-tight text-slate-700 text-start">
+            <h3 className="font-bold text-sm tracking-tight text-start"
+                style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-rust)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
               Email
             </h3>
-            <p className="text-base mt-2 text-indigo-600 font-medium">
+            <p className="text-base mt-2 font-medium" style={{ color: 'var(--ink-light)' }}>
               {siteConfig.social.email}
             </p>
           </div>
@@ -68,13 +79,16 @@ const ContactMe = () => {
                 Name
               </label>
               <input
-                className="w-full rounded-xl p-3 text-base outline-none border-2 text-slate-700 bg-white/70 backdrop-blur-sm border-indigo-100 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all ease placeholder:text-slate-400"
-                placeholder="Name"
+                className={inputClasses}
+                style={inputStyles}
+                placeholder="Your name"
                 type="text"
                 id="name"
                 name="name"
                 required
                 disabled={status === 'loading'}
+                onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--accent-rust)'; }}
+                onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--border-sketch)'; }}
               />
             </div>
 
@@ -84,13 +98,16 @@ const ContactMe = () => {
                   Email
                 </label>
                 <input
-                  className="w-full rounded-xl p-3 text-base outline-none border-2 text-slate-700 bg-white/70 backdrop-blur-sm border-indigo-100 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all ease placeholder:text-slate-400"
-                  placeholder="Email"
+                  className={inputClasses}
+                  style={inputStyles}
+                  placeholder="Email address"
                   type="email"
                   id="email"
                   name="email"
                   required
                   disabled={status === 'loading'}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--accent-rust)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--border-sketch)'; }}
                 />
               </div>
 
@@ -99,13 +116,16 @@ const ContactMe = () => {
                   Phone
                 </label>
                 <input
-                  className="w-full rounded-xl p-3 text-base outline-none border-2 text-slate-700 bg-white/70 backdrop-blur-sm border-indigo-100 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all ease placeholder:text-slate-400"
-                  placeholder="Phone"
+                  className={inputClasses}
+                  style={inputStyles}
+                  placeholder="Phone number"
                   type="tel"
                   id="phone"
                   name="phone"
                   required
                   disabled={status === 'loading'}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--accent-rust)'; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--border-sketch)'; }}
                 />
               </div>
             </div>
@@ -115,12 +135,15 @@ const ContactMe = () => {
                 Message
               </label>
               <textarea
-                className="w-full h-32 rounded-xl p-3 text-base outline-none border-2 text-slate-700 bg-white/70 backdrop-blur-sm border-indigo-100 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all ease placeholder:text-slate-400"
-                placeholder="Message"
+                className={`${inputClasses} h-32`}
+                style={inputStyles}
+                placeholder="What's on your mind?"
                 id="message"
                 name="message"
                 required
                 disabled={status === 'loading'}
+                onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--accent-rust)'; }}
+                onBlur={(e) => { e.currentTarget.style.borderColor = 'var(--border-sketch)'; }}
               ></textarea>
             </div>
 
@@ -130,13 +153,13 @@ const ContactMe = () => {
               className="btn-gradient mx-auto text-base disabled:opacity-70 disabled:cursor-not-allowed"
             >
               <span className="font-medium">
-                {status === 'loading' ? 'Sending...' : 'Send'}
+                {status === 'loading' ? 'Sending...' : 'Send Message'}
               </span>
 
               {status !== 'loading' && (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="ml-2 h-5 w-5"
+                  className="ml-2 h-4 w-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -154,12 +177,16 @@ const ContactMe = () => {
             {/* Status Messages */}
             {status === 'success' && (
               <div className="absolute -bottom-14 left-0 w-full text-center">
-                <p className="text-emerald-500 font-medium">Message sent successfully! I&apos;ll get back to you soon.</p>
+                <p className="font-medium" style={{ color: 'var(--accent-sage)' }}>
+                  Message sent! I&apos;ll get back to you soon.
+                </p>
               </div>
             )}
             {status === 'error' && (
               <div className="absolute -bottom-14 left-0 w-full text-center">
-                <p className="text-rose-500 font-medium">Oops! There was a problem sending your message.</p>
+                <p className="font-medium" style={{ color: 'var(--accent-rust)' }}>
+                  Something went wrong. Please try again.
+                </p>
               </div>
             )}
           </form>

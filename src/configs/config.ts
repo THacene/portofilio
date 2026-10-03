@@ -38,9 +38,9 @@ export const siteConfig: {
         hashnode: '',
     },
     metadata: {
-        description: `Hi! I'm T.hacene, a System and Web Technology Engineer passionate about building apps, exploring SSI, and collaborating on exciting projects. Let's connect!`,
+        description: `Hi! I'm T.hacene, specialized in System Engineering and 3D web technologies (Three.js, Cannon.js, Blender 3D). Let's connect!`,
         keywords:
-            'Touari Hacene, System and Web Technology Engineer, Touari Hacene portfolio, Touari Hacene GitHub, Web Development, System administrateur, Security, Programming Languages, Open Source Developer, App Development',
+            'Touari Hacene, System Engineering, Touari Hacene portfolio, Three.js, Cannon.js, Blender 3D, Web Development, System Architecture, Robotics Simulation, WebXR',
         type: 'website',
     },
 };

@@ -2,7 +2,7 @@
 
 import AboutMe from '../content/AboutMe';
 import ContactMe from '../content/ContactMe';
-import CurrentTimeLineExp from '../content/CurrentTimeLineExp';
+import FeaturedProjects from '../content/FeaturedProjects';
 import Hero from '../content/Hero';
 import AnimationContainer from '../utils/AnimationContainer';
 import SectionContainer from '../utils/SectionContainer';
@@ -13,7 +13,7 @@ const HomeSection = () => {
     <SectionContainer>
 
       {/* Hero Section */}
-      <div className="w-full h-[calc(100vh-11rem)] flex items-center justify-center">
+      <div className="w-full h-[calc(100vh-11rem)] flex items-center justify-start">
         <Hero />
       </div>
 
@@ -22,75 +22,84 @@ const HomeSection = () => {
         <AboutMe />
       </AnimationContainer>
 
-      {/* Timeline Section */}
+      {/* Projects Section (replaces Experience) */}
       <AnimationContainer customClassName="w-full mt-16">
-        <CurrentTimeLineExp />
+        <FeaturedProjects />
       </AnimationContainer>
 
       {/* Skills Section */}
       <AnimationContainer customClassName="w-full mt-16">
         <div className="flex flex-col gap-5">
-          <h2 className="font-bold text-2xl md:text-2xl tracking-tight mb-2 gradient-text">
-            Skills
+          <h2 className="font-bold text-2xl md:text-2xl tracking-tight mb-2 text-center lg:text-start"
+              style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)', letterSpacing: '-0.02em' }}>
+            Toolbox
           </h2>
           <div className="section-divider"></div>
 
           <div className="glass-card p-6 lg:p-8">
-            <div className="flex flex-col items-start gap-3">
-              <p className="text-base text-slate-500 leading-relaxed">
-                I&apos;ve been programming for over years, gaining experience with a
-                variety of programming languages, frameworks, and tools. I&apos;ve worked on both Frontend and Backend
-                technologies, allowing me to understand and contribute to the entire development process.
-              </p>
-            
-              <div className="flex flex-col items-start gap-3 mt-6">
-                <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Programming Languages</h3>
-                <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                  <ShowSkills skills={['C', 'C++', 'Java', 'JavaScript', 'PHP', 'Python', 'CSS', 'HTML']} />
-                </AnimationContainer>
-              </div>
-            
-              <div className="flex flex-col items-start gap-3 mt-3">
-                <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Frameworks</h3>
-                <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                  <ShowSkills skills={['Bootstrap', 'Node.js', 'Next.js', 'Tailwind CSS', 'Three.js', 'Cannon.js']} />
-                </AnimationContainer>
-              </div>
-            
-              <div className="flex flex-col items-start gap-3 mt-3">
-                <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Tools and IDEs</h3>
-                <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                  <ShowSkills skills={['VS Code', 'Git', 'GitHub', 'Heroku', 'GitHub Actions', 'Docker']} />
-                </AnimationContainer>
-              </div>
-            
-              <div className="flex flex-col items-start gap-3 mt-3">
-                <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Databases</h3>
-                <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                  <ShowSkills skills={['MongoDB', 'MySQL', 'PostgreSQL', 'SQLite']} />
-                </AnimationContainer>
-              </div>
-            
-              <div className="flex flex-col items-start gap-3 mt-3">
-                <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Operating Systems</h3>
-                <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                  <ShowSkills skills={['Linux', 'Windows']} />
-                </AnimationContainer>
-              </div>
-            
-              <div className="flex flex-col items-start gap-3 mt-3">
-                <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Scripting</h3>
-                <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                  <ShowSkills skills={['PowerShell', 'Bash']} />
-                </AnimationContainer>
-              </div>
-            
-              <div className="flex flex-col items-start gap-3 mt-3">
-                <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Web Servers</h3>
-                <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                  <ShowSkills skills={['Nginx']} />
-                </AnimationContainer>
-              </div>
+            <p className="text-base leading-relaxed mb-6" style={{ color: 'var(--ink-muted)' }}>
+              Technologies and tools I reach for when building. Years of working across the 
+              full stack have given me comfort with everything from low-level systems to polished frontends.
+            </p>
+          
+            <div className="flex flex-col items-start gap-3 mt-6">
+              <h3 className="font-semibold text-sm tracking-tight mb-3 text-start" 
+                  style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-rust)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                Languages
+              </h3>
+              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
+                <ShowSkills skills={['C', 'C++', 'Java', 'JavaScript', 'PHP', 'Python', 'CSS', 'HTML']} />
+              </AnimationContainer>
+            </div>
+          
+            <div className="flex flex-col items-start gap-3 mt-3">
+              <h3 className="font-semibold text-sm tracking-tight mb-3 text-start" 
+                  style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-rust)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                3D & Simulation
+              </h3>
+              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
+                <ShowSkills skills={['Three.js', 'Cannon.js', 'Blender 3D', 'WebXR']} />
+              </AnimationContainer>
+            </div>
+
+            <div className="flex flex-col items-start gap-3 mt-3">
+              <h3 className="font-semibold text-sm tracking-tight mb-3 text-start" 
+                  style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-rust)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                Frameworks
+              </h3>
+              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
+                <ShowSkills skills={['Next.js', 'Node.js', 'Laravel', 'Tailwind CSS', 'Bootstrap']} />
+              </AnimationContainer>
+            </div>
+          
+            <div className="flex flex-col items-start gap-3 mt-3">
+              <h3 className="font-semibold text-sm tracking-tight mb-3 text-start" 
+                  style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-rust)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                Tools & Infra
+              </h3>
+              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
+                <ShowSkills skills={['VS Code', 'Git', 'GitHub', 'Heroku', 'GitHub Actions', 'Docker']} />
+              </AnimationContainer>
+            </div>
+          
+            <div className="flex flex-col items-start gap-3 mt-3">
+              <h3 className="font-semibold text-sm tracking-tight mb-3 text-start" 
+                  style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-rust)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                Databases
+              </h3>
+              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
+                <ShowSkills skills={['MongoDB', 'MySQL', 'PostgreSQL', 'SQLite']} />
+              </AnimationContainer>
+            </div>
+          
+            <div className="flex flex-col items-start gap-3 mt-3">
+              <h3 className="font-semibold text-sm tracking-tight mb-3 text-start" 
+                  style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-rust)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                Systems
+              </h3>
+              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
+                <ShowSkills skills={['Linux', 'Windows', 'Nginx', 'PowerShell', 'Bash']} />
+              </AnimationContainer>
             </div>
           </div>
 

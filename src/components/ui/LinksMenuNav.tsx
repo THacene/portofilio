@@ -30,16 +30,27 @@ const LinksMenuNav = () => {
         LinksMenu.map(({ name, path, delay }) => (
           <li
             key={name}
-            className='border-indigo-100 text-slate-700 text-sm font-semibold'
-            style={{ transitionDelay: delay }}>
-            <Link href={path} className='pb-4 hover:text-indigo-600 transition-colors'>
+            className='text-sm font-semibold'
+            style={{ 
+              transitionDelay: delay, 
+              color: 'var(--ink-light)',
+              borderColor: 'var(--border-sketch)',
+              fontFamily: 'var(--font-body)',
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase',
+              fontSize: '0.75rem',
+            }}>
+            <Link 
+              href={path} 
+              className='pb-4 transition-colors text-[var(--ink-light)] hover:text-[var(--accent-rust)] block'
+            >
               {name}
             </Link>
           </li>
         ))
       }
     </>
-  )
-}
+  );
+};
 
 export default LinksMenuNav;

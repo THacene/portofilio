@@ -9,7 +9,8 @@ import LinksMenuNav from './LinksMenuNav';
 const MenuIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
-      className='h-5 w-5 absolute text-slate-600'
+      className='h-5 w-5 absolute'
+      style={{ color: 'var(--ink)' }}
       width='20'
       height='20'
       viewBox='0 0 20 20'
@@ -36,7 +37,8 @@ const MenuIcon = (props: React.SVGProps<SVGSVGElement>) => {
 const CrossIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
-      className='h-5 w-5 absolute text-slate-600'
+      className='h-5 w-5 absolute'
+      style={{ color: 'var(--ink)' }}
       viewBox='0 0 24 24'
       width='24'
       height='24'
@@ -81,9 +83,14 @@ const MobileMenuNav = () => {
           <ul
             className={cn(
               styles.menu,
-              'flex flex-col items-start justify-center absolute right-0 backdrop-blur-xl bg-white/80 text-end p-5 rounded-2xl mr-5 shadow-lg border border-indigo-100',
+              'flex flex-col items-start justify-center absolute right-0 text-end p-5 mr-5 shadow-lg',
               styles.menuRendered
-            )}>
+            )}
+            style={{
+              background: 'var(--paper-warm)',
+              border: '1.5px solid var(--border-sketch)',
+              borderRadius: '4px',
+            }}>
 
             <LinksMenuNav />
 

@@ -2,7 +2,6 @@ import '@/src/styles/globals.css';
 import clsx from 'clsx';
 import Header from '@/src/components/ui/Header';
 import Footer from '@/src/components/ui/Footer';
-import FlareCursor from '@/src/components/ui/FlareCursor';
 import ProgressBar from '@/src/components/utils/progress';
 import BackToTopButton from '@/src/components/utils/BackToTopButton';
 import Head from './head';
@@ -14,17 +13,18 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html
       lang="en"
       className={clsx(
-        'text-slate-800 bg-[#F8FAFF] transition ease'
+        'transition ease'
       )}
+      style={{ background: 'var(--paper)', color: 'var(--ink)' }}
     >
     <Head />
 
-    <body className="bg-[#F8FAFF] transition ease min-h-screen relative overflow-x-hidden">
+    <body className="transition ease min-h-screen relative overflow-x-hidden"
+          style={{ background: 'var(--paper)' }}>
     <ProgressBar />
     <Header />
 
     <main className="flex flex-col justify-center items-center mx-auto">
-      <FlareCursor />
       {children}
       <SpeedInsights />
       <Analytics />

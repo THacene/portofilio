@@ -45,12 +45,19 @@ const LinksNav = () => {
               key={path}
               href={path}
               className={clsx(
-                'hidden lg:inline-block transition ease py-[2px] px-[10px] rounded-lg',
+                'hidden lg:inline-block transition ease py-[2px] px-[10px] text-sm',
                 {
-                  'text-slate-400 hover:text-indigo-600': !isActive,
-                  'font-bold text-indigo-600': isActive,
+                  'font-bold': isActive,
                 }
-              )}>
+              )}
+              style={{
+                color: isActive ? 'var(--accent-rust)' : 'var(--ink-muted)',
+                fontFamily: 'var(--font-body)',
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                fontSize: '0.75rem',
+                fontWeight: isActive ? 700 : 500,
+              }}>
 
               {name}
 

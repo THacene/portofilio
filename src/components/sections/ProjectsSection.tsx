@@ -12,28 +12,48 @@ import { Skeleton } from '../ui/skeleton';
 const ProjectsSection = () => {
   const [projectSearch, setProjectSearch] = useState<string>('');
   const [allProjectsInfo, setAllProjectsInfo] = useState<CardProjectProps[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Fetch GitHub repositories when the component mounts
+  // Fetch GitHub repositories when the component mounts or search changes
   useEffect(() => {
+    let isMounted = true;
     const fetchProjects = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`/api/fetch-projects?search=${projectSearch}`);
+        const response = await fetch(`/api/fetch-projects?search=${encodeURIComponent(projectSearch)}`);
         const data = await response.json();
-        setAllProjectsInfo(data);
+        if (isMounted) {
+          if (Array.isArray(data)) {
+            setAllProjectsInfo(data);
+          } else {
+            setAllProjectsInfo([]);
+          }
+        }
       } catch (error) {
         console.error('Error fetching projects:', error);
+        if (isMounted) {
+          setAllProjectsInfo([]);
+        }
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchProjects();
+
+    return () => {
+      isMounted = false;
+    };
   }, [projectSearch]);
 
-  // Generate JSON-LD structured data for SEO and social sharing
+  // Generate JSON-LD structured data for SEO and social sharing safely
   const generateJsonLd = (projects: CardProjectProps[]) => {
+    if (!Array.isArray(projects)) {
+      return '{}';
+    }
+
     const jsonLd = {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
@@ -46,9 +66,8 @@ const ProjectsSection = () => {
           description: project.des,
           url: project.repo,
           image: project.link,
-          keywords: project.topics.join(', '),
+          keywords: Array.isArray(project.topics) ? project.topics.join(', ') : '',
         },
-
       })),
     };
 
@@ -68,30 +87,39 @@ const ProjectsSection = () => {
           }}
         />
 
-        <AnimationContainer customClassName="w-full flex flex-col gap-5 mb-8">
-          <p className="w-full text-base text-slate-500 leading-relaxed">
-            These are most of the projects I&apos;ve done since I started
-            programming, some of them are personal projects, freelance, work,
-            practice, or for other situations. If you want to see absolutely all
-            my projects, go to my{' '}
+        <AnimationContainer customClassName="w-full flex flex-col gap-4 mb-4">
+          <p 
+            className="w-full text-base leading-relaxed"
+            style={{ color: 'var(--ink-muted)', maxWidth: '640px', lineHeight: '1.75' }}
+          >
+            A comprehensive index of software projects, open source repositories, client work, 
+            and engineering experiments I&apos;ve built. For the full archive, check my{' '}
             <Link
               href={siteConfig.social.github}
               target="_blank"
-              className="text-indigo-600 hover:text-indigo-800 hover:underline transition-all ease font-medium"
+              style={{ color: 'var(--accent-rust)', fontWeight: 600, textDecoration: 'underline' }}
             >
-              GitHub
+              GitHub profile
             </Link>
             .
           </p>
         </AnimationContainer>
 
         {/* Search Input Section */}
-        <AnimationContainer customClassName="w-full group flex flex-col justify-center items-center mb-8">
-          <div className="w-full flex items-center lg:w-3/6 h-12 rounded-xl shadow-sm bg-white/70 backdrop-blur-sm border-2 border-indigo-100 group-hover:border-indigo-300 transition-all ease">
-            <div className="grid place-items-center h-full w-12 text-indigo-400">
+        <AnimationContainer customClassName="w-full flex flex-col justify-center items-center mb-6">
+          <div 
+            className="w-full flex items-center h-12 transition-all ease"
+            style={{
+              background: 'var(--paper-warm)',
+              border: '1.5px solid var(--border-sketch)',
+              borderRadius: '3px',
+              boxShadow: '2px 2px 0 var(--border-dark)'
+            }}
+          >
+            <div className="grid place-items-center h-full w-12" style={{ color: 'var(--accent-rust)' }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-4 w-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -105,10 +133,11 @@ const ProjectsSection = () => {
               </svg>
             </div>
             <input
-              className="peer h-full w-full outline-none rounded text-sm text-slate-700 bg-transparent px-2 placeholder:text-slate-400 transition-all ease"
+              className="h-full w-full outline-none text-sm bg-transparent px-2 placeholder:text-[var(--ink-muted)] transition-all ease"
+              style={{ fontFamily: 'var(--font-mono)', color: 'var(--ink)' }}
               type="text"
               id="search"
-              placeholder="Search projects (Languages, frameworks, libraries, etc...)"
+              placeholder="Search projects (Languages, tags, keywords...)"
               value={projectSearch}
               onChange={(e) => setProjectSearch(e.target.value)}
             />
@@ -116,17 +145,16 @@ const ProjectsSection = () => {
         </AnimationContainer>
 
         {/* Display Projects or "No projects found" message */}
-        <article className="w-full flex justify-center items-center content-center flex-wrap gap-6 mx-auto">
+        <article className="w-full flex flex-col gap-6 mx-auto">
           {isLoading ? (
-            Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} className="w-full h-auto p-4 glass-card">
-                <Skeleton className="w-full h-10 mb-4 skeleton-bright" />
-                <Skeleton className="w-full h-6 skeleton-bright" />
-                <Skeleton className="w-3/4 h-4 skeleton-bright mt-2" />
-                <Skeleton className="w-full h-10 skeleton-bright mt-4" />
+            Array.from({ length: 4 }).map((_, index) => (
+              <div key={index} className="w-full h-auto p-6 glass-card">
+                <Skeleton className="w-1/3 h-6 mb-4 skeleton-bright" />
+                <Skeleton className="w-full h-4 skeleton-bright mb-2" />
+                <Skeleton className="w-2/3 h-4 skeleton-bright" />
               </div>
             ))
-          ) : allProjectsInfo.length > 0 ? (
+          ) : Array.isArray(allProjectsInfo) && allProjectsInfo.length > 0 ? (
             allProjectsInfo.map(
               ({ id, title, des, category, repo, link, topics }) => (
                 <CardProject
@@ -141,10 +169,24 @@ const ProjectsSection = () => {
               )
             )
           ) : (
-            <AnimationContainer customClassName="w-full group flex flex-col justify-center items-center mb-8">
-              <div className="text-center text-slate-600 p-6 glass-card rounded-xl">
-                <h2 className="text-lg font-semibold">No projects found</h2>
-                <p className="text-sm text-slate-400 mt-2">Try a different search term</p>
+            <AnimationContainer customClassName="w-full flex flex-col justify-center items-center py-12">
+              <div 
+                className="text-center p-8 w-full max-w-md"
+                style={{
+                  background: 'var(--paper-warm)',
+                  border: '1.5px dashed var(--border-sketch)',
+                  borderRadius: '3px'
+                }}
+              >
+                <h3 
+                  className="text-lg font-bold"
+                  style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
+                >
+                  No projects found
+                </h3>
+                <p className="text-sm mt-2" style={{ color: 'var(--ink-muted)' }}>
+                  Try a different search query or clear the filter.
+                </p>
               </div>
             </AnimationContainer>
           )}

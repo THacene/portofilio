@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const ExternalLink = ({
   href,
-  customClassName = 'flex items-center gap-2 text-slate-400 hover:text-indigo-600 transition ease',
+  customClassName = 'flex items-center gap-2 transition ease hover:opacity-80',
   children
 }: ExternalLinkProps) => (
   <Link

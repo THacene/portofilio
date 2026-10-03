@@ -1,6 +1,5 @@
 import AnimationContainer from '../utils/AnimationContainer';
 import { siteConfig } from '@/src/configs/config';
-import CurrentTimeLineExp from '../content/CurrentTimeLineExp';
 import ShowSkills from '../utils/ShowSkills';
 import TitleSectionPageContainer from '../utils/TitleSectionPageContainer';
 import SectionContainer from '../utils/SectionContainer';
@@ -9,96 +8,145 @@ import Link from 'next/link';
 const AboutSection = () => {
   return (
     <SectionContainer>
-      <div className="w-full flex flex-col gap-6">
+      <div className="w-full flex flex-col gap-8">
 
         <TitleSectionPageContainer title="About Me" />
 
-        <AnimationContainer customClassName="w-full flex flex-col gap-5 mb-8">
+        {/* Narrative / Personal Story */}
+        <AnimationContainer customClassName="w-full flex flex-col gap-6">
           <div className="glass-card p-6 lg:p-8">
-            <p className="text-base text-slate-600 leading-relaxed">
-              Hello! I&apos;m <strong className="text-indigo-600">{siteConfig.author}</strong>, a System and Web Technology Engineer. 
-              I specialize in developing efficient web applications and managing system security.
+            <div className="flex items-center gap-3 mb-4">
+              <span className="editorial-label">Background</span>
+            </div>
+            
+            <p className="text-base leading-relaxed mb-4" style={{ color: 'var(--ink-light)', lineHeight: '1.8' }}>
+              I&apos;m <strong style={{ color: 'var(--ink)' }}>{siteConfig.author}</strong>, specialized in{' '}
+              <strong style={{ color: 'var(--accent-rust)' }}>System Engineering</strong>, focusing on developing 
+              dependable system architectures, robust web platforms, and interactive 3D experiences. 
+              My journey in computing started with deep curiosity about systems communication and software mechanics, 
+              leading me to engineer enterprise solutions and interactive simulations alike.
             </p>
 
-            <p className="text-base text-slate-600 leading-relaxed mt-4">
-              With a strong foundation in frontend and backend development, as well as system administration, 
-              I focus on building scalable solutions and implementing robust security measures. I am always open 
-              to new challenges and collaborations. Feel free to explore my work on my{' '}
-              <Link
-                href={siteConfig.social.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-indigo-600 hover:text-indigo-800 hover:underline transition-all ease font-medium"
-              >
-                GitHub profile
-              </Link>.
+            <blockquote className="pull-quote my-6">
+              &ldquo;Software should feel crafted, dependable, and purposeful — solving real human problems rather than adding noise.&rdquo;
+            </blockquote>
+
+            <p className="text-base leading-relaxed" style={{ color: 'var(--ink-muted)', lineHeight: '1.8' }}>
+              Over the years, I&apos;ve worked across system administration, backend engineering, and frontend interaction design.
+              From configuring operating systems and network services to crafting real-time 3D physics with 
+              <strong> Three.js</strong>, <strong>Cannon.js</strong>, and <strong>Blender 3D</strong>, 
+              I strive for technical rigor paired with practical utility.
             </p>
           </div>
         </AnimationContainer>
 
-        <CurrentTimeLineExp />
+        {/* Projects Highlight Box replacing Experience */}
+        <AnimationContainer customClassName="w-full flex flex-col gap-4">
+          <div className="glass-card p-6 lg:p-8" style={{ borderLeft: '4px solid var(--accent-rust)' }}>
+            <div className="flex items-center justify-between flex-wrap gap-4 mb-3">
+              <div>
+                <span className="editorial-label mb-2">Featured Work</span>
+                <h3 
+                  className="text-xl font-bold mt-1"
+                  style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
+                >
+                  Key Projects & Engineering Work
+                </h3>
+              </div>
+              <Link 
+                href="/projects" 
+                className="btn-outline !py-2 !px-4 !text-xs"
+              >
+                View All Projects &rarr;
+              </Link>
+            </div>
+            <p className="text-sm md:text-base leading-relaxed" style={{ color: 'var(--ink-muted)', lineHeight: '1.7' }}>
+              Instead of a conventional job timeline, my work speaks best through what I&apos;ve built — including 
+              an enterprise reporting platform for <strong>Sonatrach</strong>, a WebXR robotics simulation platform with 
+              <strong> Three.js</strong> and <strong>Cannon.js</strong>, and commercial e-commerce applications.
+            </p>
+          </div>
+        </AnimationContainer>
 
+        {/* Skills Section with Editorial Typography */}
         <AnimationContainer customClassName="w-full flex flex-col gap-5 mb-8">
-          <h2 className="font-bold text-2xl md:text-2xl tracking-tight mb-2 gradient-text text-start">Skills</h2>
+          <div className="flex items-center gap-3">
+            <h2 
+              className="font-bold text-2xl tracking-tight"
+              style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
+            >
+              Technical Tooling & Skills
+            </h2>
+          </div>
           <div className="section-divider"></div>
 
           <div className="glass-card p-6 lg:p-8">
-            <p className="text-base text-slate-500 leading-relaxed mb-6">
-              I&apos;ve been programming for over years, gaining experience with a
-              variety of programming languages, frameworks, and tools. I&apos;ve worked on both Frontend and Backend
-              technologies, allowing me to understand and contribute to the entire development process.
+            <p className="text-sm md:text-base leading-relaxed mb-8" style={{ color: 'var(--ink-muted)', lineHeight: '1.7' }}>
+              Technologies and tools I use to design, architect, simulate, and ship reliable software:
             </p>
 
-            <div className="flex flex-col items-start gap-3 mt-3">
-              <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Programming Languages</h3>
-              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                <ShowSkills skills={['C', 'C++', 'Java', 'JavaScript', 'PHP', 'Python', 'CSS', 'HTML']} />
-              </AnimationContainer>
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* 3D & Simulation */}
+              <div className="flex flex-col items-start gap-2">
+                <span className="text-xs font-mono uppercase tracking-wider font-semibold" style={{ color: 'var(--accent-rust)' }}>
+                  3D, Simulation & Graphics
+                </span>
+                <div className="flex items-center flex-wrap gap-2 mt-1">
+                  <ShowSkills skills={['Three.js', 'Cannon.js', 'Blender 3D', 'WebXR']} />
+                </div>
+              </div>
 
-            <div className="flex flex-col items-start gap-3 mt-3">
-              <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Frameworks</h3>
-              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                <ShowSkills skills={['Bootstrap', 'Node.js', 'Next.js', 'Tailwind CSS', 'Three.js', 'Cannon.js']} />
-              </AnimationContainer>
-            </div>
+              {/* Systems & Engineering */}
+              <div className="flex flex-col items-start gap-2">
+                <span className="text-xs font-mono uppercase tracking-wider font-semibold" style={{ color: 'var(--accent-rust)' }}>
+                  Systems & Infrastructure
+                </span>
+                <div className="flex items-center flex-wrap gap-2 mt-1">
+                  <ShowSkills skills={['Linux', 'Windows', 'Nginx', 'Docker', 'Bash', 'PowerShell']} />
+                </div>
+              </div>
 
-            <div className="flex flex-col items-start gap-3 mt-3">
-              <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Tools and IDEs</h3>
-              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                <ShowSkills skills={['VS Code', 'Git', 'GitHub', 'Heroku', 'GitHub Actions', 'Docker']} />
-              </AnimationContainer>
-            </div>
+              {/* Programming Languages */}
+              <div className="flex flex-col items-start gap-2">
+                <span className="text-xs font-mono uppercase tracking-wider font-semibold" style={{ color: 'var(--accent-rust)' }}>
+                  Programming Languages
+                </span>
+                <div className="flex items-center flex-wrap gap-2 mt-1">
+                  <ShowSkills skills={['JavaScript', 'TypeScript', 'PHP', 'Python', 'C', 'C++', 'Java', 'HTML', 'CSS']} />
+                </div>
+              </div>
 
-            <div className="flex flex-col items-start gap-3 mt-3">
-              <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Databases</h3>
-              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                <ShowSkills skills={['MongoDB', 'MySQL', 'PostgreSQL', 'SQLite']} />
-              </AnimationContainer>
-            </div>
+              {/* Frameworks & Libraries */}
+              <div className="flex flex-col items-start gap-2">
+                <span className="text-xs font-mono uppercase tracking-wider font-semibold" style={{ color: 'var(--accent-rust)' }}>
+                  Frameworks & Libraries
+                </span>
+                <div className="flex items-center flex-wrap gap-2 mt-1">
+                  <ShowSkills skills={['Next.js', 'Node.js', 'Laravel', 'Tailwind CSS', 'Bootstrap']} />
+                </div>
+              </div>
 
-            <div className="flex flex-col items-start gap-3 mt-3">
-              <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Operating Systems</h3>
-              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                <ShowSkills skills={['Linux', 'Windows']} />
-              </AnimationContainer>
-            </div>
+              {/* Databases */}
+              <div className="flex flex-col items-start gap-2">
+                <span className="text-xs font-mono uppercase tracking-wider font-semibold" style={{ color: 'var(--accent-rust)' }}>
+                  Databases & Storage
+                </span>
+                <div className="flex items-center flex-wrap gap-2 mt-1">
+                  <ShowSkills skills={['MySQL', 'PostgreSQL', 'MongoDB', 'SQLite']} />
+                </div>
+              </div>
 
-            <div className="flex flex-col items-start gap-3 mt-3">
-              <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Scripting</h3>
-              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                <ShowSkills skills={['PowerShell', 'Bash']} />
-              </AnimationContainer>
-            </div>
-
-            <div className="flex flex-col items-start gap-3 mt-3">
-              <h3 className="font-semibold text-lg tracking-tight mb-3 text-slate-700 text-start">Web Servers</h3>
-              <AnimationContainer customClassName="flex items-center flex-wrap gap-3 mb-5">
-                <ShowSkills skills={['Nginx']} />
-              </AnimationContainer>
+              {/* Developer Tools */}
+              <div className="flex flex-col items-start gap-2">
+                <span className="text-xs font-mono uppercase tracking-wider font-semibold" style={{ color: 'var(--accent-rust)' }}>
+                  Tools & Version Control
+                </span>
+                <div className="flex items-center flex-wrap gap-2 mt-1">
+                  <ShowSkills skills={['Git', 'GitHub', 'VS Code', 'GitHub Actions']} />
+                </div>
+              </div>
             </div>
           </div>
-
         </AnimationContainer>
 
       </div>
